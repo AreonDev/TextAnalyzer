@@ -22,6 +22,7 @@
 //
 using System;
 using TextAnalyzer;
+using System.Collections.Generic;
 
 namespace FeatureTextAnalyzer
 {
@@ -46,6 +47,14 @@ namespace FeatureTextAnalyzer
                         Console.WriteLine ("{0}: {1}", token.Key, token.Value);
                     }
                 });
+
+            var vis = new ChartVisualizer ();
+            var dict = new Dictionary<string, int> ();
+            dict.Add ("This", 4);
+            dict.Add ("is", 2);
+            dict.Add ("a", 1);
+            dict.Add ("test", 4);
+            vis.Visualize (dict);
         }
     }
 }
