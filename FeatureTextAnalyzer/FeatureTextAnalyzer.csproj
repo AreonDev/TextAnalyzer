@@ -35,9 +35,10 @@
     <Compile Include="Loaders\TextFileLoader.cs" />
     <Compile Include="Splitters\WordSplitter.cs" />
     <Compile Include="Processors\WordLengthProcessor.cs" />
-    <Compile Include="Splitters\AverageSentenceWordLengthProcessor.cs" />
     <Compile Include="Visualizers\ChartVisualizer.cs" />
     <Compile Include="Visualizers\ChartVisualizerForm.cs" />
+    <Compile Include="Processors\AverageSentenceWordLengthProcessor.cs" />
+    <Compile Include="Visualizers\TextVisualizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextAnalyzer.csproj">

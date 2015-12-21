@@ -20,9 +20,9 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
+
 using System;
 using TextAnalyzer;
-using System.Collections.Generic;
 
 namespace FeatureTextAnalyzer
 {
@@ -30,31 +30,22 @@ namespace FeatureTextAnalyzer
     {
         public static void Main (string[] args)
         {
-            TextFileLoader tfl = new TextFileLoader ();
+            var tfl = new TextFileLoader ();
 
-            WordSplitter ws = new WordSplitter ();
+            var ws = new WordSplitter ();
 
-            WordLengthProcessor wlp = new WordLengthProcessor ();
-            AverageSentenceWordLengthProcessor aswlp = new AverageSentenceWordLengthProcessor ();
+            var wlp = new WordLengthProcessor ();
+            var aswlp = new AverageSentenceWordLengthProcessor ();
+
+            var cv = new ChartVisualizer ();
+            var tv = new TextVisualizer ();
 
             Analyzer<string, int> analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
             analyzer.Analyze (
                 ws,
                 aswlp,
-                (table) => {
-                    foreach (var token in table)
-                    {
-                        Console.WriteLine ("{0}: {1}", token.Key, token.Value);
-                    }
-                });
-
-            var vis = new ChartVisualizer ();
-            var dict = new Dictionary<string, int> ();
-            dict.Add ("This", 4);
-            dict.Add ("is", 2);
-            dict.Add ("a", 1);
-            dict.Add ("test", 4);
-            vis.Visualize (dict);
+                cv
+            );
         }
     }
 }

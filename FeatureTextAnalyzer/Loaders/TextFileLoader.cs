@@ -20,7 +20,7 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
-using System;
+
 using TextAnalyzer;
 using System.IO;
 
@@ -28,14 +28,9 @@ namespace FeatureTextAnalyzer
 {
     public class TextFileLoader : ILoader<string>
     {
-        public TextFileLoader ()
-        {
-            //Hier könnte ihre Werbung stehen
-        }
-
         #region ILoader implementation
 
-        string ILoader<string>.Load (FileInfo file)
+        public string Load (FileInfo file)
         {
             return File.ReadAllText (file.FullName);
         }

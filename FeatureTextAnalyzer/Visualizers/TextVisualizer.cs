@@ -1,5 +1,5 @@
 ﻿//
-//  Program.cs
+//  TextVisualizer.cs
 //
 //  Author:
 //       Fin Christensen <christensen.fin@gmail.com>
@@ -22,23 +22,23 @@
 //
 
 using System;
+using TextAnalyzer;
+using System.Collections.Generic;
 
-namespace TextAnalyzer
+namespace FeatureTextAnalyzer
 {
-    class MainClass
+    public class TextVisualizer : IVisualizer<string, int>
     {
-	public static void Main (string[] args)
-	{
-	    Analyzer<string, int> analyzer = new Analyzer<string, int> ("This is a test");
-	    analyzer.Analyze (
-		(text) => text.Split (' '),
-		(word) => word.Length,
-		(table) => {
-		foreach (var token in table)
-		{
-		    Console.WriteLine ("{0}: {1}", token.Key, token.Value);
-		}
-	    });
-	}
+        #region IVisualizer implementation
+
+        public void Visualize (Dictionary<string, Pair<List<int>, int>> table)
+        {
+            foreach (var row in table)
+            {
+                Console.WriteLine ("{0}: {1}", row.Key, row.Value.First[0]);
+            }
+        }
+
+        #endregion
     }
 }

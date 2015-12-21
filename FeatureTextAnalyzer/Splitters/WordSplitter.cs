@@ -20,7 +20,7 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
-using System;
+
 using TextAnalyzer;
 using System.Collections.Generic;
 
@@ -28,15 +28,13 @@ namespace FeatureTextAnalyzer
 {
     public class WordSplitter : ISplitter<string>
     {
-        public WordSplitter ()
-        {
-        }
-
         #region ISplitter implementation
-        System.Collections.Generic.IEnumerable<string> ISplitter<string>.Split (string text)
+
+        public IEnumerable<string> Split (string text)
         {
             return text.Split (' ');
         }
+
         #endregion
     }
 }

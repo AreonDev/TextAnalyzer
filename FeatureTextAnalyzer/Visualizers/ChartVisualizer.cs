@@ -20,7 +20,7 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
-using System;
+
 using TextAnalyzer;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -31,7 +31,7 @@ namespace FeatureTextAnalyzer
     {
         #region IVisualizer implementation
 
-        public void Visualize (Dictionary<string, int> table)
+        public void Visualize (Dictionary<string, Pair<List<int>, int>> table)
         {
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);

@@ -25,36 +25,42 @@ using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class AverageSentenceWordLengthProcessor : IProcessor<String, int>
+    public class AverageSentenceWordLengthProcessor : IProcessor<string, int>
     {
-        public AverageSentenceWordLengthProcessor ()
-        {
-        }
-
-        private int current_WordCount = 0;
-        private int current_WordLength = 0;
+        int current_WordCount;
+        int current_WordLength;
+        string sentence = "";
 
         #region IProcessor implementation
 
-        int IProcessor<string, int>.Process (string word)
+        public Pair<string, int> Process (string word)
         {
-            if (word [word.Length - 1] == '.' || word [word.Length - 1] == '!' || word[word.Length -1] == '\n')
+            if (word [word.Length - 1] == '.' ||
+                word [word.Length - 1] == '!' ||
+                word [word.Length - 1] == '?')
             {
                 current_WordCount++;
                 current_WordLength += word.Length - 1;
+                sentence += word;
 
-                int what_to_return = (int)Math.Floor ((float)(current_WordLength) / ((float)current_WordCount));
+                Pair<string, int> what_to_return = new Pair<string, int> (
+                    sentence.Substring (0, sentence.Length),
+                    (int) Math.Floor (current_WordLength / (float) current_WordCount)
+                );
 
                 current_WordCount = 0;
                 current_WordLength = 0;
+                sentence = "";
 
                 return what_to_return;
-            } else
+            }
+            else
             {
                 current_WordCount++;
                 current_WordLength += word.Length;
+                sentence += word + " ";
 
-                return 0;//(int)Math.Floor ((float)(current_WordLength) / ((float)current_WordCount));
+                return null;
             }
         }
 

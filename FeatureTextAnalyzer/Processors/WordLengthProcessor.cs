@@ -20,25 +20,20 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
-using System;
 using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-	public class WordLengthProcessor : IProcessor<string, int>
-	{
-		public WordLengthProcessor ()
-		{
-		}
+    public class WordLengthProcessor : IProcessor<string, int>
+    {
+        #region IProcessor implementation
 
-		#region IProcessor implementation
+        public Pair<string, int> Process (string word)
+        {
+            return new Pair<string, int> (word, word.Length);
+        }
 
-		int IProcessor<string, int>.Process (string word)
-		{
-			return word.Length;
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }
 

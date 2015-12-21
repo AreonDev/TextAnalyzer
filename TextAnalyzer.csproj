@@ -41,7 +41,4 @@
     <Compile Include="ILoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="Program.cs" />
-  </ItemGroup>
 </Project>
