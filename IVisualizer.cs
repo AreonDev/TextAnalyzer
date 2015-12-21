@@ -27,6 +27,6 @@ namespace TextAnalyzer
 {
     public interface IVisualizer<TContent, TValue>
     {
-        void Visualize (Dictionary<TContent, Pair<List<TValue>, int>> table);
+        void Visualize (Dictionary<TContent,List<TValue>> table, VisualizationTarget target);
     }
 }

@@ -20,6 +20,8 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
+
+using System;
 using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
@@ -28,9 +30,9 @@ namespace FeatureTextAnalyzer
     {
         #region IProcessor implementation
 
-        public Pair<string, int> Process (string word)
+        public Tuple<string, int> Process (string word)
         {
-            return new Pair<string, int> (word, word.Length);
+            return new Tuple<string, int> (word, word.Length);
         }
 
         #endregion

@@ -21,25 +21,55 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
 
-using TextAnalyzer;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class ChartVisualizer : IVisualizer<string, int>
+    public class ChartVisualizer<TContent, TValue> : IVisualizer<TContent, TValue>
     {
         #region IVisualizer implementation
 
-        public void Visualize (Dictionary<string, Pair<List<int>, int>> table)
+        public void Visualize (Dictionary<TContent, List<TValue>> table, VisualizationTarget target)
         {
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
-            var form = new ChartVisualizerForm (table);
-            form.ShowDialog ();
+
+            if (table.Values.Count > 0)
+            {
+                var type = typeof (TValue);
+                if (typeof (double).IsAssignableFrom (type) ||
+                    typeof (float) == type ||
+                    typeof (int) == type ||
+                    typeof (short) == type ||
+                    typeof (long) == type)
+                {
+                    var new_table = new Dictionary<TContent, List<double>> ();
+                    foreach (var row in table)
+                    {
+                        var new_list = new List<double> ();
+                        foreach (var item in row.Value)
+                        {
+                            new_list.Add (Convert.ToDouble (item));
+                        }
+                        new_table.Add (row.Key, new_list); 
+                    }
+                    var form = new ChartVisualizerForm<TContent> (new_table, target);
+                    form.ShowDialog ();
+                }
+                else
+                {
+                    throw new NotSupportedException ("Incompatible type TValue");
+                }
+            }
+            else
+            {
+                new ChartVisualizerForm<TContent> (new Dictionary<TContent, List<double>> (), target).ShowDialog ();
+            }
         }
 
         #endregion
     }
 }
-

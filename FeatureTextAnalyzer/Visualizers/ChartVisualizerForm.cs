@@ -22,22 +22,22 @@
 //
 
 using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using OxyPlot;
-using OxyPlot.WindowsForms;
-using OxyPlot.Series;
 using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class ChartVisualizerForm : Form
+    public class ChartVisualizerForm<TContent> : Form
     {
-        public ChartVisualizerForm (Dictionary<string, Pair<List<int>, int>> table)
+        public ChartVisualizerForm (Dictionary<TContent, List<double>> table, VisualizationTarget target)
         {
             Text = "Plot";
-            Width = 600;
+            Width = 1000;
             Height = 400;
             var plot_view = new PlotView ();
             plot_view.Dock = DockStyle.Fill;
@@ -52,10 +52,23 @@ namespace FeatureTextAnalyzer
             var series = new ColumnSeries ();
             foreach (var row in table)
             {
-                axis.Labels.Add (row.Key);
-                series.Items.Add (new ColumnItem (row.Value.First[0], axis.Labels.IndexOf (row.Key)) {
-                    Color = OxyColor.FromHsv (rnd.NextDouble (), 1, 1)
-                });
+                axis.Labels.Add (row.Key.ToString ());
+
+                switch (target)
+                {
+                case VisualizationTarget.CollectedElements:
+                    throw new NotSupportedException ("VisualizationTarget.CollectedElements is currently not supported!");
+                case VisualizationTarget.FirstElement:
+                    series.Items.Add (new ColumnItem (row.Value[0], axis.Labels.IndexOf (row.Key.ToString ())) {
+                        Color = OxyColor.FromHsv (rnd.NextDouble (), 1, 1)
+                    });
+                    break;
+                case VisualizationTarget.TotalElementCount:
+                    series.Items.Add (new ColumnItem (row.Value.Count, axis.Labels.IndexOf (row.Key.ToString ())) {
+                        Color = OxyColor.FromHsv (rnd.NextDouble (), 1, 1)
+                    });
+                    break;
+                }
             }
 
             plot_model.Series.Add (series);

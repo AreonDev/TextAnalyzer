@@ -27,15 +27,32 @@ using System.Collections.Generic;
 
 namespace FeatureTextAnalyzer
 {
-    public class TextVisualizer : IVisualizer<string, int>
+    public class TextVisualizer<TContent, TValue> : IVisualizer<TContent, TValue>
     {
         #region IVisualizer implementation
 
-        public void Visualize (Dictionary<string, Pair<List<int>, int>> table)
+        public void Visualize (Dictionary<TContent, List<TValue>> table, VisualizationTarget target)
         {
             foreach (var row in table)
             {
-                Console.WriteLine ("{0}: {1}", row.Key, row.Value.First[0]);
+                switch (target)
+                {
+                case VisualizationTarget.CollectedElements:
+                    string list = "[";
+                    foreach (var item in row.Value)
+                    {
+                        list += item + ", ";
+                    }
+                    list = list.Substring (0, list.Length - 2) + "]";
+                    Console.WriteLine ("{0}: {1}", row.Key, list);
+                    break;
+                case VisualizationTarget.FirstElement:
+                    Console.WriteLine ("{0}: {1}", row.Key, row.Value[0]);
+                    break;
+                case VisualizationTarget.TotalElementCount:
+                    Console.WriteLine ("{0}: {1}", row.Key, row.Value.Count);
+                    break;
+                }
             }
         }
 

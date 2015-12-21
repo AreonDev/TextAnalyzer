@@ -20,12 +20,13 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
+
 using System;
 using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class AverageSentenceWordLengthProcessor : IProcessor<string, int>
+    public class AverageSentenceWordLengthProcessor : IProcessor<string, double>
     {
         int current_WordCount;
         int current_WordLength;
@@ -33,7 +34,7 @@ namespace FeatureTextAnalyzer
 
         #region IProcessor implementation
 
-        public Pair<string, int> Process (string word)
+        public Tuple<string, double> Process (string word)
         {
             if (word [word.Length - 1] == '.' ||
                 word [word.Length - 1] == '!' ||
@@ -43,9 +44,9 @@ namespace FeatureTextAnalyzer
                 current_WordLength += word.Length - 1;
                 sentence += word;
 
-                Pair<string, int> what_to_return = new Pair<string, int> (
+                Tuple<string, double> what_to_return = new Tuple<string, double> (
                     sentence.Substring (0, sentence.Length),
-                    (int) Math.Floor (current_WordLength / (float) current_WordCount)
+                    current_WordLength / (double) current_WordCount
                 );
 
                 current_WordCount = 0;

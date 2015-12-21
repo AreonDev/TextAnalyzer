@@ -37,14 +37,15 @@ namespace FeatureTextAnalyzer
             var wlp = new WordLengthProcessor ();
             var aswlp = new AverageSentenceWordLengthProcessor ();
 
-            var cv = new ChartVisualizer ();
-            var tv = new TextVisualizer ();
+            var cv = new ChartVisualizer<string, double> ();
+            var tv = new TextVisualizer<string, double> ();
 
-            Analyzer<string, int> analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
+            var analyzer = new Analyzer<string, double> ("DemoText.txt", tfl);
             analyzer.Analyze (
                 ws,
                 aswlp,
-                cv
+                cv,
+                VisualizationTarget.FirstElement
             );
         }
     }

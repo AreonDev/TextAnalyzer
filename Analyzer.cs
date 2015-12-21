@@ -52,7 +52,7 @@ namespace TextAnalyzer
 
         public IEnumerable<TContent> Tokens { get; private set; }
 
-        public Dictionary<TContent, Pair<List<TValue>, int>> Table { get; private set; }
+        public Dictionary<TContent, List<TValue>> Table { get; private set; }
 
         public void Split (Func<TContent, IEnumerable<TContent>> splitter)
         {
@@ -64,29 +64,28 @@ namespace TextAnalyzer
             Split (step.Split);
         }
 
-        public void Process (Func<TContent, Pair<TContent, TValue>> processor)
+        public void Process (Func<TContent, Tuple<TContent, TValue>> processor)
         {
-            Table = new Dictionary<TContent, Pair<List<TValue>, int>> ();
+            Table = new Dictionary<TContent, List<TValue>> ();
             foreach (var token in Tokens)
             {
                 var tuple = processor (token);
 
-                if (tuple == null || tuple.First == null || tuple.First.Equals (default (TContent)))
+                if (tuple == null || tuple.Item1 == null || tuple.Item1.Equals (default (TContent)))
                     continue;
 
-                if (Table.ContainsKey (tuple.First))
+                if (Table.ContainsKey (tuple.Item1))
                 {
-                    var row = Table [tuple.First];
-                    if (!tuple.Second.Equals (default (TValue)))
-                        row.First.Add (tuple.Second);
-                    row.Second += 1;
+                    var row = Table [tuple.Item1];
+                    if (!tuple.Item2.Equals (default (TValue)))
+                        row.Add (tuple.Item2);
                 }
                 else
                 {
                     var list = new List<TValue> ();
-                    if (!tuple.Second.Equals (default (TValue)))
-                        list.Add (tuple.Second);
-                    Table.Add (tuple.First, new Pair<List<TValue>, int> (list, 1));
+                    if (!tuple.Item2.Equals (default (TValue)))
+                        list.Add (tuple.Item2);
+                    Table.Add (tuple.Item1, new List<TValue> (list));
                 }
             }
         }
@@ -96,93 +95,96 @@ namespace TextAnalyzer
             Process (step.Process);
         }
 
-        public void Visualize (Action<Dictionary<TContent, Pair<List<TValue>, int>>> visualizer)
+        public void Visualize (Action<Dictionary<TContent, List<TValue>>, VisualizationTarget> visualizer,
+            VisualizationTarget target)
         {
-            visualizer (Table);
+            visualizer (Table, target);
         }
 
-        public void Visualize (IVisualizer<TContent, TValue> visualizer)
+        public void Visualize (IVisualizer<TContent, TValue> visualizer, VisualizationTarget target)
         {
-            Visualize (visualizer.Visualize);
+            Visualize (visualizer.Visualize, target);
         }
 
         public void Analyze (
             Func<TContent, IEnumerable<TContent>> splitter,
-            Func<TContent, Pair<TContent, TValue>> processor,
-            Action<Dictionary<TContent, Pair<List<TValue>, int>>> visualizer)
+            Func<TContent, Tuple<TContent, TValue>> processor,
+            Action<Dictionary<TContent, List<TValue>>, VisualizationTarget> visualizer,
+            VisualizationTarget target)
         {
             Split (splitter);
             Process (processor);
-            Visualize (visualizer);
+            Visualize (visualizer, target);
         }
 
         public void Analyze (
             Func<TContent, IEnumerable<TContent>> splitter,
-            Func<TContent, Pair<TContent, TValue>> processor,
-            IVisualizer<TContent, TValue> visualizer)
+            Func<TContent, Tuple<TContent, TValue>> processor,
+            IVisualizer<TContent, TValue> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter, processor, visualizer.Visualize);
-        }
-
-        public void Analyze (
-            Func<TContent, IEnumerable<TContent>> splitter,
-            IProcessor<TContent, TValue> processor,
-            Action<Dictionary<TContent, Pair<List<TValue>, int>>> visualizer)
-        {
-            Analyze (splitter, processor.Process, visualizer);
+            Analyze (splitter, processor, visualizer.Visualize, target);
         }
 
         public void Analyze (
             Func<TContent, IEnumerable<TContent>> splitter,
             IProcessor<TContent, TValue> processor,
-            IVisualizer<TContent, TValue> visualizer)
+            Action<Dictionary<TContent, List<TValue>>, VisualizationTarget> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter, processor.Process, visualizer.Visualize);
+            Analyze (splitter, processor.Process, visualizer, target);
+        }
+
+        public void Analyze (
+            Func<TContent, IEnumerable<TContent>> splitter,
+            IProcessor<TContent, TValue> processor,
+            IVisualizer<TContent, TValue> visualizer,
+            VisualizationTarget target)
+        {
+            Analyze (splitter, processor.Process, visualizer.Visualize, target);
         }
 
         public void Analyze (
             ISplitter<TContent> splitter,
-            Func<TContent, Pair<TContent, TValue>> processor,
-            Action<Dictionary<TContent, Pair<List<TValue>, int>>> visualizer)
+            Func<TContent, Tuple<TContent, TValue>> processor,
+            Action<Dictionary<TContent, List<TValue>>, VisualizationTarget> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter.Split, processor, visualizer);
+            Analyze (splitter.Split, processor, visualizer, target);
         }
 
         public void Analyze (
             ISplitter<TContent> splitter,
-            Func<TContent, Pair<TContent, TValue>> processor,
-            IVisualizer<TContent, TValue> visualizer)
+            Func<TContent, Tuple<TContent, TValue>> processor,
+            IVisualizer<TContent, TValue> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter.Split, processor, visualizer.Visualize);
+            Analyze (splitter.Split, processor, visualizer.Visualize, target);
         }
 
         public void Analyze (
             ISplitter<TContent> splitter,
             IProcessor<TContent, TValue> processor,
-            Action<Dictionary<TContent, Pair<List<TValue>, int>>> visualizer)
+            Action<Dictionary<TContent, List<TValue>>, VisualizationTarget> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter.Split, processor.Process, visualizer);
+            Analyze (splitter.Split, processor.Process, visualizer, target);
         }
 
         public void Analyze (
             ISplitter<TContent> splitter,
             IProcessor<TContent, TValue> processor,
-            IVisualizer<TContent, TValue> visualizer)
+            IVisualizer<TContent, TValue> visualizer,
+            VisualizationTarget target)
         {
-            Analyze (splitter.Split, processor.Process, visualizer.Visualize);
+            Analyze (splitter.Split, processor.Process, visualizer.Visualize, target);
         }
     }
 
-    public sealed class Pair<T1, T2>
+    public enum VisualizationTarget
     {
-        public Pair (T1 first, T2 second)
-        {
-            First = first;
-            Second = second;
-        }
-
-        public T1 First { get; set; }
-
-        public T2 Second { get; set; }
+        CollectedElements,
+        FirstElement,
+        TotalElementCount
     }
 }

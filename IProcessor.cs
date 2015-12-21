@@ -21,10 +21,12 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
 
+using System;
+
 namespace TextAnalyzer
 {
     public interface IProcessor<TContent, TValue>
     {
-        Pair<TContent, TValue> Process (TContent word);
+        Tuple<TContent, TValue> Process (TContent word);
     }
 }

@@ -23,6 +23,7 @@
 
 using TextAnalyzer;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FeatureTextAnalyzer
 {
@@ -32,7 +33,7 @@ namespace FeatureTextAnalyzer
 
         public IEnumerable<string> Split (string text)
         {
-            return text.Split (' ');
+            return text.Split (' ', '\n', '\r').Where ((string arg) => !string.IsNullOrEmpty (arg));
         }
 
         #endregion
