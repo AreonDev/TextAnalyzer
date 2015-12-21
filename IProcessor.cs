@@ -25,6 +25,6 @@ namespace TextAnalyzer
 {
     public interface IProcessor<TContent, TValue>
     {
-		TValue Process (TContent word);
+        TValue Process (TContent word);
     }
 }

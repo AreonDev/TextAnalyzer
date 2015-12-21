@@ -29,121 +29,124 @@ namespace TextAnalyzer
 {
     public sealed class Analyzer<TContent, TValue>
     {
-	public Analyzer (TContent text)
-	{
-	    Content = text;
-	}
+        public Analyzer (TContent text)
+        {
+            Content = text;
+        }
 
-	public Analyzer (FileInfo file, Func<FileInfo, TContent> loader)
-	{
-	    Content = loader (file);
-	}
+        public Analyzer (FileInfo file, Func<FileInfo, TContent> loader)
+        {
+            Content = loader (file);
+        }
 
-	public Analyzer (string filename, Func<FileInfo, TContent> loader) : this (new FileInfo (filename), loader)
-	{}
+        public Analyzer (string filename, Func<FileInfo, TContent> loader) : this (new FileInfo (filename), loader)
+        {
+        }
 
-	public TContent Content { get; private set; }
-	public IEnumerable<TContent> Tokens { get; private set; }
-	public Dictionary<TContent, TValue> Table { get; private set; }
+        public TContent Content { get; private set; }
 
-	public void Split (Func<TContent, IEnumerable<TContent>> splitter)
-	{
-	    Tokens = splitter (Content);
-	}
+        public IEnumerable<TContent> Tokens { get; private set; }
 
-	public void Split (ISplitter<TContent> step)
-	{
-	    Split (step.Split);
-	}
+        public Dictionary<TContent, TValue> Table { get; private set; }
 
-	public void Process (Func<TContent, TValue> processor)
-	{
-	    Table = new Dictionary<TContent, TValue> ();
-	    foreach (var token in Tokens)
-	    {
-		Table.Add (token, processor (token));
-	    }
-	}
+        public void Split (Func<TContent, IEnumerable<TContent>> splitter)
+        {
+            Tokens = splitter (Content);
+        }
 
-	public void Process (IProcessor<TContent, TValue> step)
-	{
-	    Process (step.Process);
-	}
+        public void Split (ISplitter<TContent> step)
+        {
+            Split (step.Split);
+        }
 
-	public void Visualize (Action<Dictionary<TContent, TValue>> visualizer)
-	{
-	    visualizer (Table);
-	}
+        public void Process (Func<TContent, TValue> processor)
+        {
+            Table = new Dictionary<TContent, TValue> ();
+            foreach (var token in Tokens)
+            {
+                Table.Add (token, processor (token));
+            }
+        }
 
-	public void Visualize (IVisualizer<TContent, TValue> visualizer)
-	{
-	    Visualize (visualizer.Visualize);
-	}
+        public void Process (IProcessor<TContent, TValue> step)
+        {
+            Process (step.Process);
+        }
 
-	public void Analyze (
-	    Func<TContent, IEnumerable<TContent>> splitter,
-	    Func<TContent, TValue> processor,
-	    Action<Dictionary<TContent, TValue>> visualizer)
-	{
-	    Split (splitter);
-	    Process (processor);
-	    Visualize (visualizer);
-	}
+        public void Visualize (Action<Dictionary<TContent, TValue>> visualizer)
+        {
+            visualizer (Table);
+        }
 
-	public void Analyze (
-	    Func<TContent, IEnumerable<TContent>> splitter,
-	    Func<TContent, TValue> processor,
-	    IVisualizer<TContent, TValue> visualizer)
-	{
-	    Analyze (splitter, processor, visualizer.Visualize);
-	}
+        public void Visualize (IVisualizer<TContent, TValue> visualizer)
+        {
+            Visualize (visualizer.Visualize);
+        }
 
-	public void Analyze (
-	    Func<TContent, IEnumerable<TContent>> splitter,
-	    IProcessor<TContent, TValue> processor,
-	    Action<Dictionary<TContent, TValue>> visualizer)
-	{
-	    Analyze (splitter, processor.Process, visualizer);
-	}
+        public void Analyze (
+            Func<TContent, IEnumerable<TContent>> splitter,
+            Func<TContent, TValue> processor,
+            Action<Dictionary<TContent, TValue>> visualizer)
+        {
+            Split (splitter);
+            Process (processor);
+            Visualize (visualizer);
+        }
 
-	public void Analyze (
-	    Func<TContent, IEnumerable<TContent>> splitter,
-	    IProcessor<TContent, TValue> processor,
-	    IVisualizer<TContent, TValue> visualizer)
-	{
-	    Analyze (splitter, processor.Process, visualizer.Visualize);
-	}
+        public void Analyze (
+            Func<TContent, IEnumerable<TContent>> splitter,
+            Func<TContent, TValue> processor,
+            IVisualizer<TContent, TValue> visualizer)
+        {
+            Analyze (splitter, processor, visualizer.Visualize);
+        }
 
-	public void Analyze (
-	    ISplitter<TContent> splitter,
-	    Func<TContent, TValue> processor,
-	    Action<Dictionary<TContent, TValue>> visualizer)
-	{
-	    Analyze (splitter.Split, processor, visualizer);
-	}
+        public void Analyze (
+            Func<TContent, IEnumerable<TContent>> splitter,
+            IProcessor<TContent, TValue> processor,
+            Action<Dictionary<TContent, TValue>> visualizer)
+        {
+            Analyze (splitter, processor.Process, visualizer);
+        }
 
-	public void Analyze (
-	    ISplitter<TContent> splitter,
-	    Func<TContent, TValue> processor,
-	    IVisualizer<TContent, TValue> visualizer)
-	{
-	    Analyze (splitter.Split, processor, visualizer.Visualize);
-	}
+        public void Analyze (
+            Func<TContent, IEnumerable<TContent>> splitter,
+            IProcessor<TContent, TValue> processor,
+            IVisualizer<TContent, TValue> visualizer)
+        {
+            Analyze (splitter, processor.Process, visualizer.Visualize);
+        }
 
-	public void Analyze (
-	    ISplitter<TContent> splitter,
-	    IProcessor<TContent, TValue> processor,
-	    Action<Dictionary<TContent, TValue>> visualizer)
-	{
-	    Analyze (splitter.Split, processor.Process, visualizer);
-	}
+        public void Analyze (
+            ISplitter<TContent> splitter,
+            Func<TContent, TValue> processor,
+            Action<Dictionary<TContent, TValue>> visualizer)
+        {
+            Analyze (splitter.Split, processor, visualizer);
+        }
 
-	public void Analyze (
-	    ISplitter<TContent> splitter,
-	    IProcessor<TContent, TValue> processor,
-	    IVisualizer<TContent, TValue> visualizer)
-	{
-	    Analyze (splitter.Split, processor.Process, visualizer.Visualize);
-	}
+        public void Analyze (
+            ISplitter<TContent> splitter,
+            Func<TContent, TValue> processor,
+            IVisualizer<TContent, TValue> visualizer)
+        {
+            Analyze (splitter.Split, processor, visualizer.Visualize);
+        }
+
+        public void Analyze (
+            ISplitter<TContent> splitter,
+            IProcessor<TContent, TValue> processor,
+            Action<Dictionary<TContent, TValue>> visualizer)
+        {
+            Analyze (splitter.Split, processor.Process, visualizer);
+        }
+
+        public void Analyze (
+            ISplitter<TContent> splitter,
+            IProcessor<TContent, TValue> processor,
+            IVisualizer<TContent, TValue> visualizer)
+        {
+            Analyze (splitter.Split, processor.Process, visualizer.Visualize);
+        }
     }
 }

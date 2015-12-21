@@ -27,6 +27,6 @@ namespace TextAnalyzer
 {
     public interface ISplitter<TContent>
     {
-		IEnumerable<TContent> Split (TContent text);
+        IEnumerable<TContent> Split (TContent text);
     }
 }

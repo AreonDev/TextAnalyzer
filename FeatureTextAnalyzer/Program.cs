@@ -25,24 +25,25 @@ using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-	class MainClass
-	{
-		public static void Main (string[] args)
-		{
-			TextFileLoader tfl = new TextFileLoader ();
+    class MainClass
+    {
+        public static void Main (string[] args)
+        {
+            TextFileLoader tfl = new TextFileLoader ();
 
-			Analyzer<string, int> analyzer = new Analyzer<string, int> ("This is a test");
-			analyzer.Analyze (
-				(text) => text.Split (' '),
-				(word) => word.Length,
-				(table) => {
-					foreach (var token in table)
-					{
-						Console.WriteLine ("{0}: {1}", token.Key, token.Value);
-					}
-				});
+            Analyzer<string, int> analyzer = new Analyzer<string, int> ("This is a test");
+            analyzer.Analyze (
+                (text) => text.Split (' '),
+                (word) => word.Length,
+                (table) =>
+                {
+                    foreach (var token in table)
+                    {
+                        Console.WriteLine ("{0}: {1}", token.Key, token.Value);
+                    }
+                });
 
 
-		}
-	}
+        }
+    }
 }

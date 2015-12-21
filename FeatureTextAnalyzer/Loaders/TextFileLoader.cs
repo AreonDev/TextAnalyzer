@@ -22,22 +22,24 @@
 //
 using System;
 using TextAnalyzer;
+using System.IO;
 
 namespace FeatureTextAnalyzer
 {
-	public class TextFileLoader : ILoader<string>
-	{
-		public TextFileLoader ()
-		{
-			//Hier könnte eine Ausgabe stehen
-		}
-			
-		#region ILoader implementation
-		string ILoader<string>.Load (System.IO.FileInfo file)
-		{
-			return System.IO.File.ReadAllText (file.FullName);
-		}
-		#endregion
-	}
-}
+    public class TextFileLoader : ILoader<string>
+    {
+        public TextFileLoader ()
+        {
+            //Hier könnte ihre Werbung stehen
+        }
 
+        #region ILoader implementation
+
+        string ILoader<string>.Load (FileInfo file)
+        {
+            return File.ReadAllText (file.FullName);
+        }
+
+        #endregion
+    }
+}

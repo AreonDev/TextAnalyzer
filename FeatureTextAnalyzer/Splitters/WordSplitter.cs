@@ -22,23 +22,24 @@
 //
 using System;
 using TextAnalyzer;
+using System.Collections.Generic;
 
 namespace FeatureTextAnalyzer
 {
-	public class WordSplitter : ISplitter<string>
-	{
-		public WordSplitter ()
-		{
-		}
+    public class WordSplitter : ISplitter<string>
+    {
+        public WordSplitter ()
+        {
+        }
 
-		#region ISplitter implementation
+        #region ISplitter implementation
 
-		System.Collections.Generic.IEnumerable<string> ISplitter<string>.Split (string text)
-		{
-			throw new NotImplementedException ();
-		}
+        IEnumerable<string> ISplitter<string>.Split (string text)
+        {
+            throw new NotImplementedException ();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
 
