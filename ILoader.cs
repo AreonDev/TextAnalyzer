@@ -1,4 +1,4 @@
-﻿﻿//
+﻿//
 //  ILoader.cs
 //
 //  Author:
@@ -27,6 +27,6 @@ namespace TextAnalyzer
 {
     public interface ILoader<TContent>
     {
-	TContent Load (FileInfo file);
+		TContent Load (FileInfo file);
     }
 }

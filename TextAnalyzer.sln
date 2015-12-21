@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextAnalyzer", "TextAnalyzer.csproj", "{370C7129-2C0D-4710-A419-EB2A07FAB138}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureTextAnalyzer", "FeatureTextAnalyzer\FeatureTextAnalyzer.csproj", "{799684A6-DEFC-4D5F-95E2-9D2959E71409}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{370C7129-2C0D-4710-A419-EB2A07FAB138}.Debug|x86.Build.0 = Debug|x86
 		{370C7129-2C0D-4710-A419-EB2A07FAB138}.Release|x86.ActiveCfg = Release|x86
 		{370C7129-2C0D-4710-A419-EB2A07FAB138}.Release|x86.Build.0 = Release|x86
+		{799684A6-DEFC-4D5F-95E2-9D2959E71409}.Debug|x86.ActiveCfg = Debug|x86
+		{799684A6-DEFC-4D5F-95E2-9D2959E71409}.Debug|x86.Build.0 = Debug|x86
+		{799684A6-DEFC-4D5F-95E2-9D2959E71409}.Release|x86.ActiveCfg = Release|x86
+		{799684A6-DEFC-4D5F-95E2-9D2959E71409}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
