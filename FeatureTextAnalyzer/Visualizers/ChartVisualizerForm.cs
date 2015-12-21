@@ -34,13 +34,14 @@ namespace FeatureTextAnalyzer
     {
         public ChartVisualizerForm (Dictionary<string, int> table)
         {
+            Text = "Plot";
             var plot_view = new PlotView ();
             plot_view.Dock = DockStyle.Fill;
             Controls.Add (plot_view);
 
             var rnd = new Random ();
 
-            var plot_model = new PlotModel { Title = "Plot" };
+            var plot_model = new PlotModel ();
             var axis = new CategoryAxis { Position = AxisPosition.Bottom };
             plot_model.Axes.Add (axis);
 
