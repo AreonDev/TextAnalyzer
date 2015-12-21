@@ -1,4 +1,4 @@
-﻿﻿//
+﻿//
 //  Analyzer.cs
 //
 //  Author:
@@ -41,6 +41,11 @@ namespace TextAnalyzer
 
         public Analyzer (string filename, Func<FileInfo, TContent> loader) : this (new FileInfo (filename), loader)
         {
+        }
+
+        public Analyzer(string filename, ILoader<TContent> loader)
+        {
+            Content = loader.Load (new FileInfo (filename));
         }
 
         public TContent Content { get; private set; }

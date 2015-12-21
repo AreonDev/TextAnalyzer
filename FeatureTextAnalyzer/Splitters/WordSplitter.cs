@@ -33,12 +33,10 @@ namespace FeatureTextAnalyzer
         }
 
         #region ISplitter implementation
-
-        IEnumerable<string> ISplitter<string>.Split (string text)
+        System.Collections.Generic.IEnumerable<string> ISplitter<string>.Split (string text)
         {
-            throw new NotImplementedException ();
+            return text.Split (' ');
         }
-
         #endregion
     }
 }

@@ -34,6 +34,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Loaders\TextFileLoader.cs" />
     <Compile Include="Splitters\WordSplitter.cs" />
+    <Compile Include="Processors\WordLengthProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextAnalyzer.csproj">
@@ -45,5 +46,11 @@
     <Folder Include="Loaders\" />
     <Folder Include="Processors\" />
     <Folder Include="Splitters\" />
+    <Folder Include="Visualizers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DemoText.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

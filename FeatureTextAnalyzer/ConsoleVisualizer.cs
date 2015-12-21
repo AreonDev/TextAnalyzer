@@ -1,5 +1,5 @@
 ﻿//
-//  Program.cs
+//  ConsoleVisualizer.cs
 //
 //  Author:
 //       dboeg <${AuthorEmail}>
@@ -21,28 +21,14 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 //
 using System;
-using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    class MainClass
-    {
-        public static void Main (string[] args)
-        {
-            TextFileLoader tfl = new TextFileLoader ();
-            WordSplitter ws = new WordSplitter ();
-            WordLengthProcessor wlp = new WordLengthProcessor ();
-
-            Analyzer<string, int> analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
-            analyzer.Analyze (
-                ws,
-                wlp,
-                (table) => {
-                    foreach (var token in table)
-                    {
-                        Console.WriteLine ("{0}: {1}", token.Key, token.Value);
-                    }
-                });
-        }
-    }
+	public class ConsoleVisualizer
+	{
+		public ConsoleVisualizer ()
+		{
+		}
+	}
 }
+

@@ -1,5 +1,5 @@
 ﻿//
-//  Program.cs
+//  WordLengthProcessor.cs
 //
 //  Author:
 //       dboeg <${AuthorEmail}>
@@ -25,24 +25,20 @@ using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    class MainClass
-    {
-        public static void Main (string[] args)
-        {
-            TextFileLoader tfl = new TextFileLoader ();
-            WordSplitter ws = new WordSplitter ();
-            WordLengthProcessor wlp = new WordLengthProcessor ();
+	public class WordLengthProcessor : IProcessor<string, int>
+	{
+		public WordLengthProcessor ()
+		{
+		}
 
-            Analyzer<string, int> analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
-            analyzer.Analyze (
-                ws,
-                wlp,
-                (table) => {
-                    foreach (var token in table)
-                    {
-                        Console.WriteLine ("{0}: {1}", token.Key, token.Value);
-                    }
-                });
-        }
-    }
+		#region IProcessor implementation
+
+		int IProcessor<string, int>.Process (string word)
+		{
+			return word.Length;
+		}
+
+		#endregion
+	}
 }
+
