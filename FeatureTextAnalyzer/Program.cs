@@ -30,13 +30,16 @@ namespace FeatureTextAnalyzer
         public static void Main (string[] args)
         {
             TextFileLoader tfl = new TextFileLoader ();
+
             WordSplitter ws = new WordSplitter ();
+
             WordLengthProcessor wlp = new WordLengthProcessor ();
+            AverageSentenceWordLengthProcessor aswlp = new AverageSentenceWordLengthProcessor ();
 
             Analyzer<string, int> analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
             analyzer.Analyze (
                 ws,
-                wlp,
+                aswlp,
                 (table) => {
                     foreach (var token in table)
                     {
