@@ -50,6 +50,10 @@ namespace FeatureTextAnalyzer
             plot_model.Axes.Add (axis);
 
             var series = new ColumnSeries ();
+            series.LabelFormatString = "{0:F2}";
+            series.LabelPlacement = LabelPlacement.Middle;
+            var palette = OxyPalettes.Cool (table.Count);
+            int idx = 0;
             foreach (var row in table)
             {
                 axis.Labels.Add (row.Key.ToString ());
@@ -57,18 +61,26 @@ namespace FeatureTextAnalyzer
                 switch (target)
                 {
                 case VisualizationTarget.CollectedElements:
-                    throw new NotSupportedException ("VisualizationTarget.CollectedElements is currently not supported!");
+                    foreach (var item in row.Value)
+                    {
+                        series.Items.Add (new ColumnItem (item, axis.Labels.IndexOf (row.Key.ToString ())) {
+                            Color = palette.Colors[idx].ChangeIntensity (rnd.NextDouble () * 0.5 + 0.5)
+                        });
+                    }
+                    break;
                 case VisualizationTarget.FirstElement:
                     series.Items.Add (new ColumnItem (row.Value[0], axis.Labels.IndexOf (row.Key.ToString ())) {
-                        Color = OxyColor.FromHsv (rnd.NextDouble (), 1, 1)
+                        Color = palette.Colors[idx]
                     });
                     break;
                 case VisualizationTarget.TotalElementCount:
                     series.Items.Add (new ColumnItem (row.Value.Count, axis.Labels.IndexOf (row.Key.ToString ())) {
-                        Color = OxyColor.FromHsv (rnd.NextDouble (), 1, 1)
+                        Color = palette.Colors[idx]
                     });
                     break;
                 }
+
+                idx++;
             }
 
             plot_model.Series.Add (series);
