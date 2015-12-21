@@ -41,7 +41,7 @@
     <Compile Include="Visualizers\TextVisualizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextAnalyzer.csproj">
+    <ProjectReference Include="..\Framework\TextAnalyzer.csproj">
       <Project>{370C7129-2C0D-4710-A419-EB2A07FAB138}</Project>
       <Name>TextAnalyzer</Name>
     </ProjectReference>
