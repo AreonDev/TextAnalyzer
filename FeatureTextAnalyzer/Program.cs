@@ -39,9 +39,44 @@ namespace FeatureTextAnalyzer
 
             var cv = new ChartVisualizer<string, int> ();
             var tv = new TextVisualizer<string, int> ();
+            var cvd = new ChartVisualizer<string, double> ();
+            var tvd = new TextVisualizer<string, double> ();
 
-            var analyzer = new Analyzer<string, int> ("DemoText.txt", tfl);
-            analyzer.Analyze (
+            var analyzer1 = new Analyzer<string, int> ("DemoText.txt", tfl);
+            var analyzer3 = new Analyzer<string, double> ("DemoText.txt", tfl);
+            var analyzer2 = new Analyzer<string, int> ("This is a test!");
+
+            analyzer1.Analyze (
+                ws,
+                wlp,
+                tv,
+                VisualizationTarget.FirstElement
+            );
+
+            Console.WriteLine ();
+
+            analyzer3.Analyze (
+                ws,
+                aswlp,
+                tvd,
+                VisualizationTarget.FirstElement
+            );
+
+            analyzer3.Analyze (
+                ws,
+                aswlp,
+                cvd,
+                VisualizationTarget.FirstElement
+            );
+
+            analyzer1.Analyze (
+                ws,
+                wlp,
+                cv,
+                VisualizationTarget.FirstElement
+            );
+
+            analyzer2.Analyze (
                 ws,
                 wlp,
                 cv,
