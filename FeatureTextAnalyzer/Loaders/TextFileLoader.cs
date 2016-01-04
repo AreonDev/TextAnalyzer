@@ -26,11 +26,11 @@ using System.IO;
 
 namespace FeatureTextAnalyzer
 {
-    public class TextFileLoader : ILoader<string>
+    public partial class TextFileLoader : ILoader<string>
     {
         #region ILoader implementation
 
-        public string Load (FileInfo file)
+        public virtual string Load (FileInfo file)
         {
             return File.ReadAllText (file.FullName);
         }

@@ -26,11 +26,11 @@ using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class WordLengthProcessor : IProcessor<string, int>
+    public partial class WordLengthProcessor : IProcessor<string, int>
     {
         #region IProcessor implementation
 
-        public Tuple<string, int> Process (string word)
+        public virtual Tuple<string, int> Process (string word)
         {
             return new Tuple<string, int> (word, word.Length);
         }

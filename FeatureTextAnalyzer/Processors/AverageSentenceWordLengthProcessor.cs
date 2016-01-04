@@ -26,7 +26,7 @@ using TextAnalyzer;
 
 namespace FeatureTextAnalyzer
 {
-    public class AverageSentenceWordLengthProcessor : IProcessor<string, double>
+    public partial class AverageSentenceWordLengthProcessor : IProcessor<string, double>
     {
         int current_WordCount;
         int current_WordLength;
@@ -34,7 +34,7 @@ namespace FeatureTextAnalyzer
 
         #region IProcessor implementation
 
-        public Tuple<string, double> Process (string word)
+        public virtual Tuple<string, double> Process (string word)
         {
             if (word [word.Length - 1] == '.' ||
                 word [word.Length - 1] == '!' ||

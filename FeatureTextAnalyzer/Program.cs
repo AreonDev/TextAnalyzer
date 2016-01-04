@@ -30,11 +30,24 @@ namespace FeatureTextAnalyzer
     {
         public static void Main (string[] args)
         {
+            #if LOWER_CASE_TEXT_FILE_LOADER
+            var tfl = new LowerCaseTextFileLoader();
+            #else
             var tfl = new TextFileLoader ();
+            #endif
 
-            var ws = new WordSplitter ();
+            #if SENTENCE_SPLITTER
+            var ws = new SentenceSplitter ();
+            #else
+            var ws = new WordSplitter();
+            #endif
 
-            var wlp = new WordLengthProcessor ();
+            #if SENTENCE_LENGTH
+            var wlp = new SentenceLengthProcessor ();
+            #else
+            var wlp = new WordLengthProcessor();
+            #endif
+
             var aswlp = new AverageSentenceWordLengthProcessor ();
 
             var cv = new ChartVisualizer<string, int> ();

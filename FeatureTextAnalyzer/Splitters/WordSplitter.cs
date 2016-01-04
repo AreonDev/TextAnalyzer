@@ -27,11 +27,11 @@ using System.Linq;
 
 namespace FeatureTextAnalyzer
 {
-    public class WordSplitter : ISplitter<string>
+    public partial class WordSplitter : ISplitter<string>
     {
         #region ISplitter implementation
 
-        public IEnumerable<string> Split (string text)
+        public virtual IEnumerable<string> Split (string text)
         {
             return text.Split (' ', '\n', '\r').Where ((string arg) => !string.IsNullOrEmpty (arg));
         }

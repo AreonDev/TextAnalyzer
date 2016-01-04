@@ -14,7 +14,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;SENTENCE_LENGTH;SENTENCE_SPLITTER;LOWER_CASE_TEXT_FILE_LOADER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -39,6 +39,9 @@
     <Compile Include="Visualizers\ChartVisualizerForm.cs" />
     <Compile Include="Processors\AverageSentenceWordLengthProcessor.cs" />
     <Compile Include="Visualizers\TextVisualizer.cs" />
+    <Compile Include="Splitters\SentenceSplitter.cs" />
+    <Compile Include="Additional Features\SentenceLength.cs" />
+    <Compile Include="Additional Features\LowerCaseTextFileLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Framework\TextAnalyzer.csproj">
@@ -51,6 +54,7 @@
     <Folder Include="Processors\" />
     <Folder Include="Splitters\" />
     <Folder Include="Visualizers\" />
+    <Folder Include="Additional Features\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DemoText.txt">
