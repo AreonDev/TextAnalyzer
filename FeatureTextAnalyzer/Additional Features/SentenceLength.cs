@@ -32,7 +32,17 @@ namespace FeatureTextAnalyzer
 
         public override Tuple<string, int> Process (string word)
         {
-            return new Tuple<string, int> (word, word.Split(' ', '\n', '\r').Length);
+            string[] tokens = word.Split (' ');
+
+            int count = 0;
+
+            foreach(string token in tokens)
+            {
+                if (token != "")
+                    count++;
+            }
+
+            return new Tuple<string, int> (word, count);
         }
 
         #endregion

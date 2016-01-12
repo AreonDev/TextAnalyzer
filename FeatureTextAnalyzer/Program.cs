@@ -57,7 +57,7 @@ namespace FeatureTextAnalyzer
 
             var analyzer1 = new Analyzer<string, int> ("DemoText.txt", tfl);
             var analyzer3 = new Analyzer<string, double> ("DemoText.txt", tfl);
-            var analyzer2 = new Analyzer<string, int> ("This is a test!");
+            var analyzer2 = new Analyzer<string, int> ("This is a test! Nice to meet you!");
 
             analyzer1.Analyze (
                 ws,
